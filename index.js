@@ -34,14 +34,35 @@ whatsapp.onMessageReceived(async (msg) => {
         const number = jid.split('@')[0]
         return number || ''
     }
+    function normalizeString(texto) {
+        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
     if (msg.message?.senderKeyDistributionMessage?.groupId || msg.key?.participant) return
-    if (msg.message?.extendedTextMessage?.text == 'gato' || msg.message?.extendedTextMessage?.text == 'Gato'
-        || msg.message?.conversation == 'gato' || msg.message?.conversation == 'Gato'
-    ) {
+    const textraw = msg.message?.extendedTextMessage?.text?.toLowerCase() ||msg.message?.conversation?.toLowerCase()
+    const text = normalizeString(textraw)
+    const insults = {
+        gato: 'gata',
+        puto: 'puta',
+        gay: 'gei',
+        gei: 'gei',
+        gai: 'gei',
+        marica: 'marica',
+        pete: 'me hace uno de esos',
+        trolo: 'trola',
+        tragaleche: 'me traga la leche',
+        boludo: 'puto',
+        pelotudo: 'pelotudo',
+        '!gracias': 'De nada tenga buen dia :D',
+        idiota: 'manga de falto de cromosomas',
+        imbecil: 'manga de falto de cromosomas',
+        estupido: 'manga de falto de cromosomas',
+        ridiculo: 'manga de falto de cromosomas',
+    }
+    if (insults[text]) {
         await whatsapp.sendTextMessage({
-            sessionId: "qeso", // session ID
-            to: getNumber(msg.key?.remoteJid), // always add country code (ex: 62)5493816250780
-            text: 'tu vieja gata' || '', // message you want to send
+            sessionId: "qeso", 
+            to: getNumber(msg.key?.remoteJid),
+            text: `tu vieja ${insults[text]}`,
         });
     }
 });

@@ -12,7 +12,6 @@
   "dependencies": {
     "express": "^4.18.2",
     "qrcode": "^1.5.3",
-    "wa-multi-session": "^3.1.2",
-    "whatsapp-web.js": "^1.21.0"
+    "wa-multi-session": "^3.1.2"
   }
 }
