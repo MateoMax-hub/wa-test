@@ -31,15 +31,14 @@ whatsapp.onConnecting((session) => {
 });
 
 whatsapp.onMessageReceived(async (msg) => {
-    const phoneNumber = getNumberFromJid(msg.key?.remoteJid)
-    if (msg.message?.senderKeyDistributionMessage?.groupId || msg.key?.participant || phoneNumber === '5493816814643') return
+    if (msg.message?.senderKeyDistributionMessage?.groupId || msg.key?.participant || msg.pushName === 'Mateo Max') return
     console.log(`New Message =>`, msg);
     const textraw = getMessageCaption(msg).toLowerCase()
     const text = normalizeString(textraw)
     if (DICTIONARY[text]) {
         await whatsapp.sendTextMessage({
             sessionId: "qeso", 
-            to: phoneNumber,
+            to: getNumberFromJid(msg.key?.remoteJid),
             text: `${DICTIONARY[text]}`,
         });
     }
