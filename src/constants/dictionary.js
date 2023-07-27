@@ -1,4 +1,5 @@
 const DICTIONARY = {
+    ".": '.',
     gato: 'tu vieja gata',
     puto: 'tu vieja puta',
     gay: 'tu vieja gei',
